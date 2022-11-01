@@ -2,9 +2,25 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Getting Started</title>
+    <title>My Daily Todo</title>
   </head>
   <body>
+    <section id="todos-container">
+      <div class="todo-container">
+        <h1>Today's To Do</h1>
+        <hr>
+        <form>
+          <input class="todoTextField" type="text" placeholder="Add to your list...">
+        </form>
+        <hr>
+        <div class="label-container">
+          <div id="label-container">
+            <!-- dynamically generated todos -->
+          </div>
+        </div>
+        <div class="btn-container"><input class="btn" type="button" value="Clear All Completed"></div>
+      </div>
+    </section>
     <script src="main.js"></script>
   </body>
 </html>
