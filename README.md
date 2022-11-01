@@ -13,7 +13,8 @@ To get a local copy up and running follow these simple example steps.
 ### Setup
 > Open git bash
 > git clone https://github.com/SekoViper/todo.git
-> cd Awesome-Books
+
+> cd todo
 
 
 ## Author
