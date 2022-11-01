@@ -1,3 +1,49 @@
-.hello {
-  color: red;
+.edit {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 10px;
+}
+.label-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dot {
+  background-color: rgb(2, 2, 2);
+  width: 2px;
+  height: 2px;
+  margin: 1px;
+  cursor: pointer;
+}
+.todo-container {
+  width: 650px;
+  margin: 0 auto;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+}
+input:focus{
+  outline: none;
+}
+.todoTextField {
+  width: 100%;
+  border: none;
+  margin: 10px 0;
+}
+
+label {
+  margin: 10px 0;
+}
+::placeholder {
+  text-decoration-style: wavy;
+}
+
+.btn {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.btn-container {
+  text-align: center;
 }
