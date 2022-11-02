@@ -1,4 +1,4 @@
-# Awesome Books App Project
+# Todo App Project
 
 > Setup a new repository ready for deployment using best practices (linters) 
 
