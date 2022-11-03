@@ -1,5 +1,7 @@
 // import _ from 'lodash';
-import displayBooks from '../modules/todoList.js';
+import { displayTodo, addTodo, removeTodo } from '../modules/todoList.js';
 import './style.css';
 
-displayBooks();
+displayTodo();
+addTodo();
+removeTodo();

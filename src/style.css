@@ -53,3 +53,7 @@ label {
 .btn-container {
   text-align: center;
 }
+
+.hide {
+  display: none;
+}
