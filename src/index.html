@@ -8,10 +8,16 @@
   <body>
     <section id="todos-container">
       <div class="todo-container">
-        <h1>Today's To Do</h1>
+        <div class="title">
+          <h1>Today's To Do </h1>
+          <span><i class="fa-solid fa-recycle"></i></span>
+        </div>
         <hr>
         <form id="task-form">
-          <input class="todoTextField" id="todoTextField" type="text" placeholder="Add to your list...">
+          <input class="todoTextField" id="todoTextField" type="text" placeholder="Add to your list..." required>
+          <div>
+            <i class="fas fa-arrow-left"></i>
+          </div>
         </form>
         <hr>
         <div class="label-container">
