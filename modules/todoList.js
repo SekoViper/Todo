@@ -13,11 +13,10 @@ const displayTodo = () => {
     const content = `
     <div id="${todo.id}" class="label-container">
     <label class="container">
-      <div>
-        <input type="checkbox">
-        <span class="desc">${todo.description}</span>
-        <input value="${todo.description}" type="text" class="hide task-edit">
-      </div>
+      <form class="task-edit">
+        <input class="checkbox" type="checkbox">
+        <input class="desc" value="${todo.description}" type="text">
+      </form>
     </label>
     <div class="edit">
     <i id='menu' class="menu fa-solid fa-ellipsis-vertical pointer"></i>
@@ -53,8 +52,8 @@ const removeTodo = () => {
 };
 
 const addTodo = () => {
+  const form = document.getElementById('task-form');
   const addInput = document.getElementById('todoTextField');
-  // const form = document.querySelector('form');
   addInput.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
       const todoList = {
@@ -67,33 +66,24 @@ const addTodo = () => {
       localStorage.setItem('Todo', JSON.stringify(getToDos));
       displayTodo();
       removeTodo();
-      event.preventDefault();
+      form.reset();
     }
+  });
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
   });
 };
 
 const updateTodo = () => {
-  const taskInputEdit = document.querySelectorAll('.task-edit');
-  const taskDescriptions = document.querySelectorAll('.desc');
-  taskDescriptions.forEach((task, index) => {
-    task.addEventListener('click', (event) => {
-      event.target.classList.add('hide');
-      taskInputEdit[index].classList.remove('hide');
-    });
-    ['keypress', 'focusout'].forEach((listener) => {
-      taskInputEdit[index].addEventListener(listener, (event) => {
-        if (event.key === 'Enter' || listener === 'focusout') {
-          const todos = getTodo();
-          todos.forEach((todo) => {
-            if ((todo.description === task.innerHTML) && (todo.id.toString() === event.target.parentNode.parentNode.parentNode.id)) {
-              todo.description = event.target.value;
-            }
-          });
-          localStorage.setItem('Todo', JSON.stringify(todos));
-          displayTodo();
-          updateTodo();
-        }
-      });
+  const taskEditinput = document.querySelectorAll('.desc');
+  taskEditinput.forEach((text, index) => {
+    text.addEventListener('change', (event) => {
+      const todos = getTodo();
+      todos[index].description = event.target.value;
+      localStorage.setItem('Todo', JSON.stringify(todos));
+      displayTodo();
+      removeTodo();
+      updateTodo();
     });
   });
 };
