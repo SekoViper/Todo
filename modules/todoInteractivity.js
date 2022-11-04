@@ -9,6 +9,7 @@ const checker = () => {
 };
 
 const interactivity = () => {
+  const description = document.querySelectorAll('.desc');
   const checkboxes = document.querySelectorAll('.checkbox');
   checkboxes.forEach((checkbox) => {
     checkbox.addEventListener('change', (event) => {
