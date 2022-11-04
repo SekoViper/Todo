@@ -5,18 +5,39 @@
   padding: 10px;
 }
 
-.label-container {
+.desc {
+  width: 100%;
+  border: none;
+}
+
+.title {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.dot {
-  background-color: rgb(2, 2, 2);
-  width: 2px;
-  height: 2px;
-  margin: 1px;
-  cursor: pointer;
+.label-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.container {
+  width: 95%;
+}
+
+form {
+  display: flex;
+  align-items: center;
+}
+
+#label-container {
+  width: 100%;
+}
+
+.task-edit {
+  border: none;
 }
 
 .todo-container {
@@ -52,4 +73,8 @@ label {
 
 .btn-container {
   text-align: center;
+}
+
+.hide {
+  display: none;
 }

@@ -14,7 +14,6 @@ module.exports = {
     }),
   ],
   output: {
-    // filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
   },

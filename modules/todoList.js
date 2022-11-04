@@ -1,42 +1,26 @@
 const todoContent = document.getElementById('label-container');
 
-const todos = [
-  {
-    id: 0,
-    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur ratione modi iste ipsum dolore! Explicabo modi labore maxime a nisi!',
-    completed: true,
-  },
-  {
-    id: 1,
-    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur ratione modi iste ipsum dolore! Explicabo modi labore maxime a nisi!',
-    completed: false,
-  },
-  {
-    id: 2,
-    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur ratione modi iste ipsum dolore! Explicabo modi labore maxime a nisi!',
-    completed: true,
-  },
-  {
-    id: 3,
-    description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur ratione modi iste ipsum dolore! Explicabo modi labore maxime a nisi!',
-    completed: false,
-  },
-];
+// get todo from localStorage
+const getTodo = () => {
+  const todoCollections = JSON.parse(localStorage.getItem('Todo')) || [];
+  return todoCollections;
+};
 
-const displayBooks = () => {
+const displayTodo = () => {
+  todoContent.innerHTML = '';
+  const todos = getTodo();
   todos.forEach((todo) => {
     const content = `
     <div id="${todo.id}" class="label-container">
     <label class="container">
-      <div>
-        <input type="checkbox">
-        <span>${todo.description}</span>
-      </div>
+      <form class="task-edit">
+        <input class="checkbox" type="checkbox">
+        <input class="desc" value="${todo.description}" type="text">
+      </form>
     </label>
     <div class="edit">
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
+    <i id='menu' class="menu fa-solid fa-ellipsis-vertical pointer"></i>
+    <i id='del' class="delete fa-regular fa-trash-can pointer hide"></i>
     </div>
   </div>
     <hr>
@@ -44,4 +28,66 @@ const displayBooks = () => {
     todoContent.innerHTML += content;
   });
 };
-export default displayBooks;
+
+const removeTodo = () => {
+  const deleteIcons = document.querySelectorAll('.delete');
+  const menuIcons = document.querySelectorAll('.menu');
+  menuIcons.forEach((menuicon, index) => {
+    menuicon.addEventListener('click', () => {
+      menuicon.classList.add('hide');
+      deleteIcons[index].classList.remove('hide');
+    });
+    deleteIcons[index].addEventListener('click', (event) => {
+      const taskId = event.target.parentNode.parentNode.id;
+      let todos = getTodo();
+      todos = todos.filter((todo) => todo.id.toString() !== taskId);
+      todos.forEach((todo, indx) => {
+        todo.id = indx + 1;
+      });
+      localStorage.setItem('Todo', JSON.stringify(todos));
+      displayTodo();
+      removeTodo();
+    });
+  });
+};
+
+const addTodo = () => {
+  const form = document.getElementById('task-form');
+  const addInput = document.getElementById('todoTextField');
+  addInput.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+      const todoList = {
+        id: getTodo().length + 1,
+        description: addInput.value,
+        completed: false,
+      };
+      const getToDos = getTodo();
+      getToDos.push(todoList);
+      localStorage.setItem('Todo', JSON.stringify(getToDos));
+      displayTodo();
+      removeTodo();
+      form.reset();
+    }
+  });
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+  });
+};
+
+const updateTodo = () => {
+  const taskEditinput = document.querySelectorAll('.desc');
+  taskEditinput.forEach((text, index) => {
+    text.addEventListener('change', (event) => {
+      const todos = getTodo();
+      todos[index].description = event.target.value;
+      localStorage.setItem('Todo', JSON.stringify(todos));
+      displayTodo();
+      removeTodo();
+      updateTodo();
+    });
+  });
+};
+
+export {
+  addTodo, getTodo, displayTodo, removeTodo, updateTodo,
+};
