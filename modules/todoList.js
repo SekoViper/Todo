@@ -6,6 +6,44 @@ const getTodo = () => {
   return todoCollections;
 };
 
+// Delete a task
+const removeTodo = () => {
+  const deleteIcons = document.querySelectorAll('.delete');
+  const menuIcons = document.querySelectorAll('.menu');
+  menuIcons.forEach((menuicon, index) => {
+    menuicon.addEventListener('click', () => {
+      menuicon.classList.add('hide');
+      deleteIcons[index].classList.remove('hide');
+    });
+    deleteIcons[index].addEventListener('click', (event) => {
+      const taskId = event.target.parentNode.parentNode.id;
+      let todos = getTodo();
+      todos = todos.filter((todo) => todo.id.toString() !== taskId);
+      todos.forEach((todo, indx) => {
+        todo.id = indx + 1;
+      });
+      localStorage.setItem('Todo', JSON.stringify(todos));
+      // eslint-disable-next-line no-use-before-define
+      displayTodo();
+    });
+  });
+};
+
+// Modify or edit a task
+const updateTodo = () => {
+  const taskEditinput = document.querySelectorAll('.desc');
+  taskEditinput.forEach((text, index) => {
+    text.addEventListener('change', (event) => {
+      const todos = getTodo();
+      todos[index].description = event.target.value;
+      localStorage.setItem('Todo', JSON.stringify(todos));
+      // eslint-disable-next-line no-use-before-define
+      displayTodo();
+    });
+  });
+};
+
+// create and render tasks to the DOM
 const displayTodo = () => {
   todoContent.innerHTML = '';
   const todos = getTodo();
@@ -27,35 +65,16 @@ const displayTodo = () => {
     `;
     todoContent.innerHTML += content;
   });
+  removeTodo();
+  updateTodo();
 };
 
-const removeTodo = () => {
-  const deleteIcons = document.querySelectorAll('.delete');
-  const menuIcons = document.querySelectorAll('.menu');
-  menuIcons.forEach((menuicon, index) => {
-    menuicon.addEventListener('click', () => {
-      menuicon.classList.add('hide');
-      deleteIcons[index].classList.remove('hide');
-    });
-    deleteIcons[index].addEventListener('click', (event) => {
-      const taskId = event.target.parentNode.parentNode.id;
-      let todos = getTodo();
-      todos = todos.filter((todo) => todo.id.toString() !== taskId);
-      todos.forEach((todo, indx) => {
-        todo.id = indx + 1;
-      });
-      localStorage.setItem('Todo', JSON.stringify(todos));
-      displayTodo();
-      removeTodo();
-    });
-  });
-};
-
+// Add a task
 const addTodo = () => {
   const form = document.getElementById('task-form');
   const addInput = document.getElementById('todoTextField');
   addInput.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && addInput.value !== '') {
       const todoList = {
         id: getTodo().length + 1,
         description: addInput.value,
@@ -65,7 +84,6 @@ const addTodo = () => {
       getToDos.push(todoList);
       localStorage.setItem('Todo', JSON.stringify(getToDos));
       displayTodo();
-      removeTodo();
       form.reset();
     }
   });
@@ -74,20 +92,7 @@ const addTodo = () => {
   });
 };
 
-const updateTodo = () => {
-  const taskEditinput = document.querySelectorAll('.desc');
-  taskEditinput.forEach((text, index) => {
-    text.addEventListener('change', (event) => {
-      const todos = getTodo();
-      todos[index].description = event.target.value;
-      localStorage.setItem('Todo', JSON.stringify(todos));
-      displayTodo();
-      removeTodo();
-      updateTodo();
-    });
-  });
-};
-
+// Export functions
 export {
   addTodo, getTodo, displayTodo, removeTodo, updateTodo,
 };
