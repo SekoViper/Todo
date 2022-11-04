@@ -1,3 +1,5 @@
+import interactivity from './todoInteractivity.js';
+
 const todoContent = document.getElementById('label-container');
 
 // get todo from localStorage
@@ -67,6 +69,7 @@ const displayTodo = () => {
   });
   removeTodo();
   updateTodo();
+  interactivity();
 };
 
 // Add a task
@@ -92,7 +95,21 @@ const addTodo = () => {
   });
 };
 
+// clear all
+const clearAll = () => {
+  const clearAllBtn = document.querySelector('.clear-all');
+  clearAllBtn.addEventListener('click', () => {
+    let todoCollections = JSON.parse(localStorage.getItem('Todo')) || [];
+    todoCollections = todoCollections.filter((task) => task.completed === false);
+    todoCollections.forEach((todo, indx) => {
+      todo.id = indx + 1;
+    });
+    localStorage.setItem('Todo', JSON.stringify(todoCollections));
+    displayTodo();
+  });
+};
+
 // Export functions
 export {
-  addTodo, getTodo, displayTodo, removeTodo, updateTodo,
+  addTodo, getTodo, displayTodo, removeTodo, updateTodo, clearAll,
 };
