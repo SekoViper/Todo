@@ -15,7 +15,7 @@ To get a local copy up and running follow these simple example steps.
 > git clone https://github.com/SekoViper/todo.git
 
 ### Live Demo
-> [Live Demo](https://sekoviper.github.io/Todo/)
+> [Live Demo](https://sekoviper.github.io/Todo/dist)
 
 > cd todo
 
